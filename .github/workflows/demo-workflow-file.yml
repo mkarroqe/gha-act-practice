@@ -1,13 +1,28 @@
 ---
-on: [push]
+on: [pull_request]
 
 jobs:
   build:
-    name: Hello world
+    name: A PR Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Write a multi-line message
         run: |
-          echo This demo file shows a
-          echo very basic and easy-to-understand workflow.
+          echo Hey there, this is running on a PR.
+      - name: cat the existing value of test.txt
+        run: tail -n 1 test.txt
+      - name: Run the make target to edit file in place
+        # with:
+        #   repo-token: ${{GITHUB_TOKEN}}
+        run: make update.text.test
+      - name: cat the new value of test.txt
+        run: tail -n 1 test.txt
+      - name: Check for changes
+        run: git status
+      # - name: stage changed files
+      #   run: git add test.txt
+      # - name: fetch from main
+      #   run: get fetch origin main
+      # - name: push code to current branch (main)
+      #   run: git push origin main
