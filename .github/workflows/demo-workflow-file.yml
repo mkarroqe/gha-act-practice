@@ -15,8 +15,6 @@ jobs:
       - name: cat the existing value of test.txt
         run: tail -n 1 test.txt
       - name: Run the make target to edit file in place
-        # with:
-        #   repo-token: ${{GITHUB_TOKEN}}
         run: make update.text.test
       - name: cat the new value of test.txt
         run: tail -n 1 test.txt
@@ -25,6 +23,5 @@ jobs:
       - name: Add commit with changes made in make targets
         uses: EndBug/add-and-commit@v9
         with:
-
           add: test.txt
-          message: 'ci: update VALUE'
+          message: 'ci: updated VALUE'
