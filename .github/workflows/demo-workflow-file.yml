@@ -7,6 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Write a multi-line message
         run: |
           echo Hey there, this is running on a PR.
@@ -20,9 +22,9 @@ jobs:
         run: tail -n 1 test.txt
       - name: Check for changes
         run: git status
-      # - name: stage changed files
-      #   run: git add test.txt
-      # - name: fetch from main
-      #   run: get fetch origin main
-      # - name: push code to current branch (main)
-      #   run: git push origin main
+      - name: Add commit with changes made in make targets
+        uses: EndBug/add-and-commit@v9
+        with:
+
+          add: test.txt
+          message: 'ci: update VALUE'
